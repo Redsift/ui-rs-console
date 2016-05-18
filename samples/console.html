@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Radial Chart</title>
+    <meta name="description" content="A console component.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- NOTE: the './dist' folder is served by the browser-sync plugin on '/' -->
+    <!-- <link rel="stylesheet" type="text/css" href="/css/ui-rs-console.min.css"> -->
+
+    <style>
+        body {
+            margin: 1em;
+            height: 1500px;
+        }
+
+        svg {
+            position: absolute;
+            top: 250px;
+        }
+
+        g.console rect.background {
+            fill: #002b36;
+        }
+
+        g.console-child text {
+            fill: #839496;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        g.console-child text.t {
+            font-weight: 600;
+            fill: #93a1a1;
+        }
+
+        g.console-child text.h {
+            fill: #b58900;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="content__container">
+            <rs-console width="750" height="520" text-padding="8" animated></rs-console>
+        </div>
+    </div>
+
+    <script src="//d3js.org/d3.v4.0.0-alpha.35.min.js"></script>
+    <!-- NOTE: the './dist' folder is served by the browser-sync plugin on '/' -->
+    <script src="/js/ui-rs-console.umd-es2015.js"></script>
+
+    <script>
+        // With native web components support (e.g. chrome) the WebComponentsReady event will NOT fire.
+        // Web components upgrade synchronously, so there is no need for that. If you have to use the
+        // web components polyfill enable the following event listener:
+        // (see https://www.polymer-project.org/1.0/docs/migration.html#polymer-ready)
+        // window.addEventListener('WebComponentsReady', function(e) {
+        var textlines = [{ class: 't', text: ['$ ', 'curl -sSL https://static-sdk.redsift.io/install | bash'], duration: 4000
+        }, {class: '', text: ['Downloading redsift-sdk']
+        }, {class: '', text: '########################################################################', duration: 3000
+        }, {class: '', text: ['']
+        }, {class: '', text: ['redsift-sdk has been installed in your home directory (~/.redsift).']
+        }, {class: '', text: ['Writing a launcher script to /usr/local/bin/redsift for your convenience.']
+        }, {class: '', text: ['']
+        }, {class: 't', text: ['$ ', 'redsift create simple-sift'], duration: 2000
+        }, {class: '', text: ['Redsift SDK version: 1.4.20160412']
+        }, {class: '', text: ['Creating: simple-sift...']
+        }, {class: 'h', text: ['Success!'], delay: 2000
+        }, {class: '', text: ['You can run the sift when ready by running \'redsift run ~/simple-sift\''], delay: 1500
+        }, {class: '', text: ['']
+        }, {class: 't', text: ['$ ', 'redsift run ~/simple-sift'], duration: 2000
+        }, {class: '', text: ['Redsift SDK version: 1.4.20160412']
+        }, {class: 'h', text: ['Running siftext: ~/simple-sift/sift.json']
+        }, {class: '', text: ['Redsift SDK: Using Docker']
+        }, {class: '', text: ['Redsift SDK: initialising...']
+        }, {class: '', text: ['sift.json is valid.']
+        }, {class: 'h', text: ['Redsift SDK: Started. To test your sift, go to: http://localhost:7438'], delay: 3000
+        }, {class: '', text: ['Updating grip input...']
+        }, {class: '', text: ['Hash for current run is: 5e1d97f7eef0e0aa2d464b79c76bd71af98ce0e6']
+        }, {class: '', text: ['']
+        }];
+
+        var $console = document.querySelector('rs-console');
+        $console.textlines = textlines;
+
+        setTimeout(function() {
+          $console.width = 1100;
+          $console.height = 1100;
+          $console.textPadding = 24;
+        }, 1500);
+
+        setTimeout(function() {
+          var textlines = [{ class: 't', text: ['$ ', 'echo "changed text!"'], duration: 4000
+          }];
+
+          $console.textlines = textlines;
+        }, 3000);
+        // });
+    </script>
+</body>
+
+</html>

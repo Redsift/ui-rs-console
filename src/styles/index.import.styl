@@ -1,0 +1,120 @@
+setup-radial-chart($customSettings = {}) {
+
+	/*
+   * Default settings:
+   */
+	$defaultSettings = {
+		labelColor: #3e3e3e,
+		tickColor: black,
+    curveParameters: cubic-bezier(0.175, 0.885, 0.335, 1.155),
+    duration: 400ms
+	}
+
+	$settings = merge($defaultSettings, $customSettings);
+
+  .overlayed {
+  	font-weight: 400;
+  }
+
+  .d3-rc {
+
+    text {
+      fill: $settings.labelColor;
+      pointer-events: none;
+    }
+
+    .tooltip {
+      font-size: 2em;
+    }
+
+    .segment-label {
+      text-transform: uppercase;
+      fill: $settings.labelColor;
+    }
+
+     .segment-label :not(.hover) {
+      transition: font-size $settings.curveParameters $settings.duration;
+     }
+
+     .segment-label .hover {
+      font-size: 1.8em;
+      transition: font-size $settings.curveParameters $settings.duration;
+	   }
+
+    .outer-line {
+      stroke: $settings.tickColor;
+      stroke-width: 2.0px;
+      fill: none;
+    }
+
+    circle {
+      pointer-events: none;
+    }
+
+    .segment {
+      pointer-events: none;
+    }
+
+    .segment-bg {
+      fill: none;
+      pointer-events: visible;
+    }
+
+    .band-line,
+    .tick-line {
+      stroke: #999;
+      stroke-width: 1.5px;
+      stroke-dasharray: 5,2;
+      fill: none;
+      opacity: 0.0;
+      transition: opacity $settings.curveParameters $settings.duration;
+    }
+
+    .spokes {
+      stroke: $settings.tickColor;
+      stroke-width: 0.5px;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: $settings.tickColor;
+      stroke-width: 1px;
+      shape-rendering: crispEdges;
+    }
+
+    .axis text {
+      @extend .overlayed;
+      pointer-events: visible;
+      cursor: crosshair;
+    }
+
+    .xb.axis path {
+      display: none;
+    }
+
+    .xb.axis line {
+      stroke-width: 2px;
+    }
+   }
+
+    /* Small classes */
+  .d3-small {
+    .axis text {
+      font-size: 0.8em;
+    }
+
+    .outer-line {
+      stroke-width: 0.5px;
+    }
+
+    .segment-label :not(.hover) {
+      font-size: 0.8em;
+    }
+
+    .segment-label .hover {
+      font-size: 1.0em;
+	   }
+  }
+
+}
